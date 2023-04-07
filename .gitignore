@@ -2,9 +2,10 @@
 
 # dependencies
 /node_modules
-/backend/env
 /.pnp
 .pnp.js
+/backend/env
+/backend/__pycache__
 
 # testing
 /coverage
