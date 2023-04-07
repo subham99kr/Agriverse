@@ -59,7 +59,7 @@ function Header() {
                 </div>
               {showMenu && (<div className="absolute right-0 bg-white shadow px-2 py-2 my-1 drop-shadow-md z-20">
                 <Link to='/register'>
-                <p className="whitespace-nowrap">New Product</p>
+                <p className="whitespace-nowrap">Register As Seller</p>
                 </Link>
                 <Link to="/signup" onClick={handleShowMenu}>
                 <p className="whitespace-nowrap">Signup</p>
