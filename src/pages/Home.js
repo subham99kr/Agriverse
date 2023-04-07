@@ -11,7 +11,7 @@ function Home() {
         <Imagecarousel />
       </div>
       <div className="mt-4"> 
-        <img src={aboutImage}/>
+        <img src={aboutImage} alt="about-page"/>
       </div>
       <div>
         <Newsletter/>
