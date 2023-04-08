@@ -1,5 +1,4 @@
 import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
 import { db } from "../Firebase";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
