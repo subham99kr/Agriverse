@@ -8,6 +8,7 @@ import Help from './pages/Help'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import Register from './pages/Register'
+import Team from './pages/Team';
 import Cart from './pages/Cart.js'
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/search" element={<><Header /><Search /></>} />
         <Route path="/register" element={<><Header /><Register /></>} />
         <Route path="/cart" element={<><Header /><Cart /></>} />
+        <Route path="/team" element={<><Header /><Team /></>} />
       </Routes>
     </Router>
   );

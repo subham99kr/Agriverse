@@ -31,6 +31,7 @@ function Header() {
               >
                 Search
               </NavLink>
+              
               <NavLink
                 className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/news"
@@ -42,6 +43,12 @@ function Header() {
                 to="/help"
               >
                 Help
+              </NavLink>
+              <NavLink
+                className="text-white font-montserrat font-medium hover:text-green-200"
+                to="/team"
+              >
+                Team
               </NavLink>
             </nav>
             
