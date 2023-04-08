@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/fonts.css";
+
 import { db } from "../Firebase";
 import { useEffect, useState } from "react";
 import { getDocs, collection,} from "firebase/firestore";
@@ -17,7 +18,6 @@ function Search() {
 
     getProducts();
   }, []);
-
   return (
     <div className="bg-[#f5f5f5]">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14 lg:max-w-7xl lg:px-8">
@@ -39,6 +39,7 @@ function Search() {
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>
+
                 <Link to={`/search/${product.id}`}>
                   <span aria-hidden="true" className="absolute inset-0" />
                   <p className="pt-4 font-montserrat text-lg">{product.imageAlt}</p>
@@ -46,6 +47,7 @@ function Search() {
                     <strong>PRICE : {'\u20A8 '}{product.price}</strong>
                   </p>
                 </Link>
+
               </div>
             );
           })}
@@ -55,3 +57,4 @@ function Search() {
   );
 }
 export default Search;
+
