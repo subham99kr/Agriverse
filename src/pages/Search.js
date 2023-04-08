@@ -1,63 +1,75 @@
-import React from 'react'
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { BsCartFill } from "react-icons/bs";
+import { FaUserAlt } from "react-icons/fa";
+import "../styles/fonts.css";
+import brandLogo from "../assets/logo-bold.png";
+import { NavLink } from "react-router-dom";
 
-
-let products = [
-
-  {
-    id: 1,
-    name: 'Nagpuri Oranges',
-    href: '#',
-    imageSrc: 'https://images.slurrp.com/prod/articles/pue8orx8te.webp',
-    imageAlt: "Best Oranges in India",
-    price: 'INR 120/KG ',
-  },
-  {
-    id: 2,
-    name: 'Kashmiri Apples',
-    href: '#',
-    imageSrc: 'https://images.news18.com/ibnlive/uploads/2021/11/apple-1-16361875623x2.jpg?impolicy=website&width=510&height=356',
-    imageAlt: "Best Apples in India",
-    price: 'INR 80/KG',
-
-  },
-]
-for(let i = 0; i < 6; i++) {
-  products.push(...products)
-}
-
-function Search() {
+function Header() {
+    const [showMenu, setShowMenu] = useState(false)
+    const handleShowMenu = () => {
+        setShowMenu(prev => !prev)
+    }
   return (
-    <div className="bg-white">
-        <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14 lg:max-w-7xl lg:px-8">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900 font-ubuntu mb-4">Our Products</h2>
-  
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {products?.map((product) => {return(
-              <div  className="group relative">
-                <div key={product.id} className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <a href={product.href}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        {product.name}
-                      </a>
-                    </h3>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">{product.price}</p>
-                </div>
+    <>
+      <header className="shadow-md w-full h-24 bg-blue-950 ">
+        <img
+          className="absolute m-0 h-32 w-full -z-10"
+          src="https://img.freepik.com/premium-photo/abstract-blue-background-with-smooth-lines_476363-6029.jpg"
+          alt="background"
+        />
+        <div className="flex items-center h-full justify-between">
+          <Link to="/">
+            <img src={brandLogo} alt="agriverse" className="ml-2 h-16" />
+          </Link>
+          <div className="flex items-center gap-3 sm:gap-7 p-6">
+            <nav className="flex gap-2 md:gap-6 text-xl">
+              <NavLink
+                className="text-white font-montserrat font-medium hover:text-green-200 "
+                exact to="/search" activeclassname="active-link "
+              >
+                Search
+              </NavLink>
+              <NavLink
+                className="text-white font-montserrat font-medium hover:text-green-200"
+                to="/news"
+              >
+                News
+              </NavLink>
+              
+              <NavLink
+                className="text-white font-montserrat font-medium hover:text-green-200"
+                to="/help"
+              >
+                Help
+              </NavLink>
+            </nav>
+            
+            
+            <div className="text-2xl text-white  hover:text-green-400 relative">
+                < NavLink to="/cart"><BsCartFill /></NavLink>
+              <div className="absolute bottom-2 left-3 hover:bg-red-800 bg-red-500 text-sm rounded-xl text-white h-5 w-5 text-center">
+                19
               </div>
-            )})}
+            </div>
+            <div>
+                <div className="text-2xl text-white  hover:text-green-400" onClick={handleShowMenu}>
+                  <FaUserAlt />
+                </div>
+              {showMenu && (<div className="absolute right-0 bg-white shadow px-2 py-2 my-1 drop-shadow-md z-20">
+                <Link to='/register'>
+                <p className="whitespace-nowrap">New Product</p>
+                </Link>
+                <Link to="/signup" onClick={handleShowMenu}>
+                <p className="whitespace-nowrap">Signup</p>
+                </Link>
+              </div>)}
+            </div>
           </div>
         </div>
-      </div>
-  )
+      </header>
+    </>
+  );
 }
-
-export default Search; 
+export default Header;
