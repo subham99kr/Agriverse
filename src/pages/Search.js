@@ -1,35 +1,35 @@
 import React from "react";
 import "../styles/fonts.css"
-
+import { BsCartFill } from "react-icons/bs";
 
 let products = [
   {
     id: 1,
-    name: "Nagpuri Oranges",
+    name: "Fertilizer1",
 
-    imageSrc: "https://images.slurrp.com/prod/articles/pue8orx8te.webp",
+    imageSrc: "https://mobileimages.lowes.com/product/converted/021496/021496002644.jpg",
     price: "INR 120/KG ",
     imageAlt: "Best Oranges in India",
     href: "#",
   },
   {
     id: 2,
-    name: "Kashmiri Apples",
+    name: "Fertilizer2",
 
     imageSrc:
-      "https://images.news18.com/ibnlive/uploads/2021/11/apple-1-16361875623x2.jpg?impolicy=website&width=510&height=356",
+      "https://drearth.com/wp-content/uploads/7PremiumGold_4LB_706p-1-1024x1024.jpg",
     price: "INR 80/KG",
     href: "#",
     imageAlt: "Best Apples in India",
   },
 ];
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 2; i++) {
   products.push(...products);
 }
 
 function Search() {
   return (
-    <div className="bg-white">
+    <div className="bg-[#f5f5f5]">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14 lg:max-w-7xl lg:px-8">
         <h2 className="text-2xl font-bold tracking-tight text-gray-900 font-ubuntu mb-4">
           Our Products
@@ -38,33 +38,21 @@ function Search() {
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products?.map((product) => {
             return (
-              <div
-                className="group relative "
-                style={{ border: "solid", borderRadius: "0.5rem", padding: 4 }}
-              >
+              <div className="group relative shadow-sm bg-white pt-4 rounded-t-xl">
                 <div
                   key={product.id}
-                  className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
-                >
+                  className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80">
+
                   <img
                     src={product.imageSrc}
                     alt={product.imageAlt}
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                   />
                 </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-black">
-                      <a href={product.href}>
-                        <span aria-hidden="true" className="absolute inset-0" />
-                        <strong>{product.name}</strong>
-                      </a>
-                    </h3>
-                  </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {product.price}
-                  </p>
-                </div>
+                  <a className="p-1 text-center" href={product.href}>
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    <p className="font-montserrat text-xl">{product.name}</p>
+                  </a>
               </div>
             );
           })}
