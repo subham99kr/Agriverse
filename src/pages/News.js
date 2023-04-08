@@ -4,7 +4,7 @@ const News = () => {
     const [news, setNews] = useState([])
 
     const fetchNewsData = () => {
-      fetch("https://newsapi.org/v2/top-headlines?country=in&apiKey=19b42d7ac21c409e88eba7763cdd0ed0")
+      fetch("https://newsapi.org/v2/everything?q=farming&apiKey=44e360c0bde04554babddb45a1506026")
         .then(response => {
           return response.json()
         })
@@ -24,7 +24,7 @@ const News = () => {
         let keys = Object.keys(items)
         let isEmpty = true
         keys.forEach(function(item) {
-            if(items[item] == null) isEmpty = false
+            if(items[item] === null) isEmpty = false
         })
         return isEmpty
     })
@@ -46,7 +46,7 @@ const News = () => {
                 </div>
                 <div className="px-1 mt-2 flex justify-between text-center">
                     <div className="text-gray-700">
-                      <a href={product.url}>
+                      <a href={product.url} target='_blank'>
                         <span aria-hidden="true" className="absolute inset-0" />
                         {product.description}
                       </a>
