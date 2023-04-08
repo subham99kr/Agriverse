@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import '../styles/fonts.css';
+import '../styles/Imgaecarousel.css'
 import { db } from '../Firebase';
 import { collection, getDocs } from "firebase/firestore"
 
@@ -25,17 +26,19 @@ const ImageCarousel = () => {
       slides-per-view="auto"
       navigation="true"
       pagination={true}
-      style={{backgroundColor: "#ffffee"}}
     >
       {product.map((items) => {
         return (
           <swiper-slide lazy="true">
-            <div className="md:flex">
+            <div className="md:flex shadow-md border-2 bg-slate-50 h-[90vh]">
               <div className="md:basis-1/2 basis-1">
+                <div className='center'>
                 <img src={items.imageUrl} alt={items.imageAlt} loading="lazy" />
+                </div>
               </div>
-              <div className="md:basis-1/2 basis-1">
-                <p className="text-center text-xl font-montserrat ">{items.description}</p>
+              <div className="md:basis-1/2 basis-1 relative pt-6">
+                <p className='text-center font-montserrat font-bold text-2xl mt-2 text-gray-700'>Description</p>
+                <p className="text-xl font-montserrat items-center mt-6">{items.description}</p>
               </div>
             </div>
           </swiper-slide>
