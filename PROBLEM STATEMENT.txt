@@ -17,6 +17,10 @@
              A big reason why farmers choose middlemen is a lack of route to larger markets and the fear of
              deterioration of crop makes them sell it at a much lower rate.
 
+             Also it is seen that in certain areas there is a pattern of types of crops that farmers grow. This pattern has maybe developed 
+             due to ignorance about variety of crops or a societal habit in the region. Either way this practise in the long run reduces soil
+             fertility. An effort to create awareness should be made.
+
                                                           SOLUTION
 
              Since almost everyone through out the country now has access to smart phones and internet ,
@@ -29,3 +33,7 @@
              more for the same quantity compared to the middle men,thus ending the long chain of middlemen.
              Our website will be having 24x7 helpline which is powered by AI ,solving any doubts that the
             farmer may have. Basically a farmer’s cooperative will be established .
+
+            With the incorporation of a Machine Learning model which aims to provide farmers with a range of crops that they can grow ,
+            just by providing the model some soil health parameters that are provided in the soil health card itself. The parameters include
+            (N,P,K,Ph, rainfall).
