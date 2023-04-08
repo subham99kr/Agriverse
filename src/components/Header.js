@@ -6,10 +6,10 @@ import "../styles/fonts.css";
 import brandLogo from "../assets/logo-bold.png";
 
 function Header() {
-    const [showMenu, setShowMenu] = useState(false)
-    const handleShowMenu = () => {
-        setShowMenu(prev => !prev)
-    }
+  const [showMenu, setShowMenu] = useState(false)
+  const handleShowMenu = () => {
+    setShowMenu(prev => !prev)
+  }
   return (
     <>
       <header className="shadow-md w-full h-24 bg-blue-950 ">
@@ -26,22 +26,16 @@ function Header() {
             <nav className="flex gap-2 md:gap-6 text-xl">
               <Link
                 className="text-white font-montserrat font-medium hover:text-green-200 "
-                to="/search" 
+                to="/search"
               >
                 Explore
               </Link>
-              
+
               <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/news"
               >
                 News
-              </Link>
-              <Link
-                className="text-white font-montserrat font-medium hover:text-green-200"
-                to="/weather"
-              >
-                Weather
               </Link>
               <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
@@ -56,24 +50,24 @@ function Header() {
                 Team
               </Link>
             </nav>
-            
-            
+
+
             <div className="text-2xl text-white  hover:text-green-400 relative">
-                < Link to="/cart"><BsCartFill /></Link>
+              < Link to="/cart"><BsCartFill /></Link>
               <div className="absolute bottom-2 left-3 hover:bg-red-800 bg-red-500 text-sm rounded-xl text-white h-5 w-5 text-center">
                 19
               </div>
             </div>
             <div>
-                <div className="text-2xl text-white  hover:text-green-400" onClick={handleShowMenu}>
-                  <FaUserAlt />
-                </div>
+              <div className="text-2xl text-white  hover:text-green-400" onClick={handleShowMenu}>
+                <FaUserAlt />
+              </div>
               {showMenu && (<div className="absolute right-0 bg-white shadow px-2 py-2 my-1 drop-shadow-md z-20">
                 <Link to='/register'>
-                <p className="whitespace-nowrap">New Product</p>
+                  <p className="whitespace-nowrap">New Product</p>
                 </Link>
                 <Link to="/signup" onClick={handleShowMenu}>
-                <p className="whitespace-nowrap">Signup</p>
+                  <p className="whitespace-nowrap">Signup</p>
                 </Link>
               </div>)}
             </div>
