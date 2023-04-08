@@ -11,6 +11,7 @@ import Register from './pages/Register'
 import Team from './pages/Team';
 import Cart from './pages/Cart.js'
 import Weather from './pages/Weather';
+import ProductDetail from './pages/ProductDetail'
 
 function App() {
   
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<><Header /><Register /></>} />
         <Route path="/cart" element={<><Header /><Cart /></>} />
         <Route path="/team" element={<><Header /><Team /></>} />
+        <Route path="/search/:productId" element={<><Header /><ProductDetail /></>} />
       </Routes>
     </Router>
   );
