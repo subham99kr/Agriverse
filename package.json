@@ -2,10 +2,11 @@
   "name": "agriverse",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "@chatscope/chat-ui-kit-react": "^1.10.1",
+    "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.17",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,7 +24,6 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-backend": "cd backend && env/bin/flask run --no-debugger",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
