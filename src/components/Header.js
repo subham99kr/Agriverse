@@ -39,6 +39,12 @@ function Header() {
               </Link>
               <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
+                to="/weather"
+              >
+                Weather
+              </Link>
+              <Link
+                className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/help"
               >
                 Help

@@ -10,6 +10,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Team from './pages/Team';
 import Cart from './pages/Cart.js'
+import Weather from './pages/Weather';
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
       <Routes> 
         <Route path="/" element={<><Header /><Home /></>} />
         <Route path="/news" element={<><Header /><News /></>} />
+        <Route path="/weather" element={<><Header /><Weather /></>} />
         <Route path="/help" element={<><Header /><Help /></>} />
         <Route path="/login" element={<><Header /><Login /></>} />
         <Route path="/signup" element={<><Header /><Signup/></>} />
