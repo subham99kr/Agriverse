@@ -44,6 +44,9 @@ function Search() {
                 <a className="p-1 text-center" href={product.href}>
                   <span aria-hidden="true" className="absolute inset-0" />
                   <p className="font-montserrat text-xl">{product.imageAlt}</p>
+                  <p>
+                    <strong>PRICE : {'\u20A8 '}{product.price}</strong>
+                  </p>
                 </a>
               </div>
             );
