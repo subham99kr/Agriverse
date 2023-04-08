@@ -4,27 +4,27 @@ import Srijan from '../assets/srijan.png'
 const teamMembers = [
   {
     name: 'Srijan Sehdev',
-    role: 'Python Developer',
+    role: '',
     image: Srijan,
   },
   {
     name: 'Shobhit Kumar',
-    role: 'Front-End Developer',
+    role: '',
     image: 'https://media.licdn.com/dms/image/C4D03AQHLPAskfbLicA/profile-displayphoto-shrink_800_800/0/1661604445084?e=1686182400&v=beta&t=7jiZ7jSELpXaJQTpcLUuyyntmsoJ7APdut2GGMVPJvU',
   },
   {
     name: 'Srikant Agarwal',
-    role: 'CoderPro',
+    role: '',
     image: 'https://media.licdn.com/dms/image/D4D03AQFJWwuh1aotag/profile-displayphoto-shrink_800_800/0/1673159715357?e=1686182400&v=beta&t=7S7KgIG1rEzCEgVO-pvLeS4yDjEFkfKwrlA_kALeWYI',
   },
   {
     name: 'Subham Kumar',
-    role: 'Firebase Expert',
+    role: '',
     image: 'https://media.licdn.com/dms/image/D4D03AQGrKUuvIDtwgg/profile-displayphoto-shrink_800_800/0/1667437592477?e=1686182400&v=beta&t=BPVBoi_i2kDKtCZYrBIFzQOf-NfjeEXGtfU1oD_SgTo',
   },
   {
     name: 'Tejaswi Kumari',
-    role: 'Node.js & Api expert',
+    role: '',
     image: 'https://media.licdn.com/dms/image/D4D03AQGWiHyi8RlhAg/profile-displayphoto-shrink_800_800/0/1671026744041?e=1686182400&v=beta&t=-7NIvnHXj4G4q8QyL11ZiPGbd3dBbZx_ebsm1zjYeKo',
   },
 ];

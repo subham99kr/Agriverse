@@ -4,7 +4,6 @@ import { BsCartFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import "../styles/fonts.css";
 import brandLogo from "../assets/logo-bold.png";
-import { NavLink } from "react-router-dom";
 
 function Header() {
     const [showMenu, setShowMenu] = useState(false)
@@ -25,36 +24,36 @@ function Header() {
           </Link>
           <div className="flex items-center gap-3 sm:gap-7 p-6">
             <nav className="flex gap-2 md:gap-6 text-xl">
-              <NavLink
+              <Link
                 className="text-white font-montserrat font-medium hover:text-green-200 "
-                exact to="/search" activeclassname="active-link "
+                to="/search" 
               >
-                Search
-              </NavLink>
+                Explore
+              </Link>
               
-              <NavLink
+              <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/news"
               >
                 News
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/help"
               >
                 Help
-              </NavLink>
-              <NavLink
+              </Link>
+              <Link
                 className="text-white font-montserrat font-medium hover:text-green-200"
                 to="/team"
               >
                 Team
-              </NavLink>
+              </Link>
             </nav>
             
             
             <div className="text-2xl text-white  hover:text-green-400 relative">
-                < NavLink to="/cart"><BsCartFill /></NavLink>
+                < Link to="/cart"><BsCartFill /></Link>
               <div className="absolute bottom-2 left-3 hover:bg-red-800 bg-red-500 text-sm rounded-xl text-white h-5 w-5 text-center">
                 19
               </div>
