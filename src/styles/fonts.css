@@ -9,3 +9,7 @@
 .font-quicksand {
     font-family: 'Varela Round', sans-serif;
 }
+
+nav a.active{
+    color: yellow;
+}

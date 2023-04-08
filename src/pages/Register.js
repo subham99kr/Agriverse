@@ -6,7 +6,7 @@ import React from "react";
 function Register() {
     return (
         <div className='bg-[#f5f5f5] pt-4 md:pt-6 h-[90vh]'>
-            <div className='w-full max-w-xl m-auto flex items-center flex-col p-4  rounded'>
+            <div className='bg-white w-full max-w-xl m-auto flex items-center flex-col p-4 rounded shadow-lg'>
                     <div className='bg-slate-100 w-full overflow-hidden'></div>
                     <img src={logoBold} className="p-3 h-32 rounded-3xl" />
                 <form>
