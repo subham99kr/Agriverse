@@ -1,11 +1,11 @@
 import { StarIcon } from '@heroicons/react/20/solid'
-import { RadioGroup } from '@headlessui/react'
 import { db } from "../Firebase";
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getDocs, collection,} from "firebase/firestore";
 
 const defaultProduct = {
+  id: '',
   price: '',
   imageUrl: '',
   imageAlt: '',
@@ -47,8 +47,7 @@ export default function Example() {
 
   return (
     <div className="bg-#f5f5f5">
-      <div className="pt-6">
-        
+      <div className="pt-6" key={product.id}>
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
