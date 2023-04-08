@@ -3,7 +3,6 @@ import TopButtons from '../components/TopButtons';
 import Inputs from '../components/inputs';
 import Timeandlocation from '../components/timeandlocation';
 import '../styles/Weather.css'
-import UilReact from '@iconscout/react-unicons/icons/uil-react'
 function Weather()
 {
    //  
