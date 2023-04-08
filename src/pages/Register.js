@@ -1,9 +1,21 @@
 import logoBold from '../assets/logo-only.png';
+import { useState } from 'react'
 // import {Link} from 'react-router-dom'
 import React from "react";
 // import "./Login.css";
 
 function Register() {
+    const [farmerData, setFarmerData] = useState({
+        name: {
+            fname: "", 
+            lname: ""
+        }, 
+        address: "", 
+        contactNumber: " ", 
+        crops: "", 
+        quantity: ""
+    })
+    console.log(farmerData)
     return (
         <div className='bg-[#f5f5f5] pt-4 md:pt-6 h-[90vh]'>
             <div className='w-full max-w-xl m-auto flex items-center flex-col p-4  rounded'>
@@ -15,7 +27,8 @@ function Register() {
                         type={"text"}
                         id="firstName"
                         name="firstName"
-                        className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue" />
+                        className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue" 
+                    />
                     <label className='mt-6 text-lg font-montserrat font-medium' htmlFor="lastName ">Last Name</label>
                     <input
                         type={"text"}
@@ -29,6 +42,10 @@ function Register() {
                         rows={4}
                         cols={40}
                         className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
+                        onChange={(e) => {
+                            const {address, value} = e.target; 
+                            setFarmerData({...farmerData, [address]: value})
+                        }}
                     />
                     <label className='mt-6 text-lg font-montserrat font-medium' htmlFor="firstName">Contact Number</label>
                     <input
