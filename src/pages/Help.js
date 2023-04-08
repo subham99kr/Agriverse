@@ -4,8 +4,7 @@ import '../styles/Help.css'
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 const API_KEY = "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";
-// "Explain things like you would to a 10 year old learning how to code."
-const systemMessage = { //  Explain things like you're talking to a software professional with 5 years of experience.
+const systemMessage = { 
   "role": "system", "content": " your name is edukrishak,You are supposed to answer questions only regarding agriculture"
 }
 
@@ -30,16 +29,11 @@ function Help() {
     
     setMessages(newMessages);
 
-    // Initial system message to determine ChatGPT functionality
-    // How it responds, how it talks, etc.
     setIsTyping(true);
     await processMessageToChatGPT(newMessages);
   };
 
-  async function processMessageToChatGPT(chatMessages) { // messages is an array of messages
-    // Format messages for chatGPT API
-    // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
-    // So we need to reformat
+  async function processMessageToChatGPT(chatMessages) {
 
     let apiMessages = chatMessages.map((messageObject) => {
       let role = "";
@@ -52,14 +46,12 @@ function Help() {
     });
 
 
-    // Get the request body set up with the model we plan to use
-    // and the messages which we formatted above. We add a system message in the front to'
-    // determine how we want chatGPT to act. 
+
     const apiRequestBody = {
       "model": "gpt-3.5-turbo",
       "messages": [
-        systemMessage,  // The system message DEFINES the logic of our chatGPT
-        ...apiMessages // The messages from our chat with ChatGPT
+        systemMessage, 
+        ...apiMessages 
       ]
     }
 
