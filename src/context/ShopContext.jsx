@@ -7,7 +7,6 @@ export const ShopContextProvider = (props) => {
     const { products } = useContext(ProductContext);
     // localStorage.clear() 
     let data = JSON.parse(localStorage.getItem('cart'))
-    if(data == null) data = {}
     console.log(data); 
     if(data == null) {
         data = {}
