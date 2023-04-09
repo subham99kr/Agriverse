@@ -6,8 +6,6 @@ import { ShopContext } from '../context/ShopContext'
 import { ProductContext } from '../context/ProductContext'
 
 
-
-
 export default function Example() {
   const [open, setOpen] = useState(true)
   const { cartItems } = useContext(ShopContext)
@@ -20,7 +18,7 @@ export default function Example() {
   function update() {
     products1 = []
     const keys = Object.keys(cartItems)
-    keys.forEach(key => {
+    keys?.forEach(key => {
       const e = products?.find(prod => prod.id === key);
       let price = Number(e.price) * Number(cartItems[key]);
       totalPrice += price; 
