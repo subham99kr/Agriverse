@@ -12,9 +12,8 @@ import Team from './pages/Team';
 import Cart from './pages/Cart.js'
 import Weather from './pages/Weather';
 import ProductDetail from './pages/ProductDetail'
-
-function App() {
-  
+  function App()
+{
   return (
     <Router> 
       <Routes> 
@@ -32,6 +31,5 @@ function App() {
       </Routes>
     </Router>
   );
-}
-
+  }
 export default App;
