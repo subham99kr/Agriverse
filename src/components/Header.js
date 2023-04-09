@@ -14,12 +14,12 @@ function Header() {
   const { cartItems } = useContext(ShopContext); 
   let cartNumber = 0; 
   const keys = Object.keys(cartItems); 
-  // console.log(keys);
+  console.log(cartItems)
   keys.forEach(element => {
     cartNumber += cartItems[element]; 
+    console.log(cartItems[element])
+    
   });
-  // console.log(keys); 
-  console.log(cartNumber)
 
   return (
     <>

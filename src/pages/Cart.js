@@ -7,35 +7,34 @@ import { ProductContext } from '../context/ProductContext'
 
 
 
-const products1 = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    price: '$90.00',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  // More products...
-]
 
 export default function Example() {
   const [open, setOpen] = useState(true)
   const { cartItems } = useContext(ShopContext)
   const { products } = useContext(ProductContext)
+  const { clearCart } = useContext(ShopContext); 
+  let products1 = []
 
-  const keys = Object.keys(cartItems)
-  keys.forEach(key => {
-    const e = products?.find(prod => prod.id === key);
-    products1.push({
-      id: key, 
-      name: e.imageAlt, 
-      price: e.price,
-      quantity: cartItems[key],
-      imageSrc: e.imageSrc, 
-      imageAlt: e.imageAlt, 
-    })
-  });
+
+  function update() {
+    products1 = []
+    const keys = Object.keys(cartItems)
+    keys.forEach(key => {
+      const e = products?.find(prod => prod.id === key);
+      let price = Number(e.price) * Number(cartItems[key]);
+      products1.push({
+        id: key,
+        name: e.imageAlt, 
+        price: price,
+        quantity: cartItems[key],
+        imageUrl: e.imageUrl, 
+        imageAlt: e.imageAlt, 
+      })
+    });
+  }
+  update(); 
+
+  // function clearItem(id) 
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -86,11 +85,11 @@ export default function Example() {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products1.map((product) => (
+                            {products1.map((product, ind) => (product.quantity > 0)&&(
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
-                                    src={product.imageSrc}
+                                    src={product.imageUrl}
                                     alt={product.imageAlt}
                                     className="h-full w-full object-cover object-center"
                                   />
@@ -102,7 +101,7 @@ export default function Example() {
                                       <h3>
                                       <Link to={`/search/${product.id}`}>{product.name}</Link>
                                       </h3>
-                                      <p className="ml-4">{product.price}</p>
+                                      <p className="ml-4">{"\u20B9 "}{product.price}</p>
                                     </div>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
@@ -111,6 +110,7 @@ export default function Example() {
                                     <div className="flex">
                                       <button
                                         type="button"
+                                        onClick={() => clearCart(product.id)}
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
                                       >
                                         Remove
