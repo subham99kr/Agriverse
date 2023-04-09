@@ -1,15 +1,26 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { BsCartFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import "../styles/fonts.css";
 import brandLogo from "../assets/logo-bold.png";
+import { ShopContext } from "../context/ShopContext";
 
 function Header() {
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(false); 
   const handleShowMenu = () => {
-    setShowMenu(prev => !prev)
+    setShowMenu(prev => !prev); 
   }
+  const { cartItems } = useContext(ShopContext); 
+  let cartNumber = 0; 
+  const keys = Object.keys(cartItems); 
+  // console.log(keys);
+  keys.forEach(element => {
+    cartNumber += cartItems[element]; 
+  });
+  // console.log(keys); 
+  console.log(cartNumber)
+
   return (
     <>
       <header className="shadow-md w-full h-24 bg-blue-950 ">
@@ -49,13 +60,21 @@ function Header() {
               >
                 Team
               </Link>
+              <a
+                href="http://127.0.0.1:5000/crop-recommend" className="text-white font-montserrat font-medium hover:text-green-200"
+              >
+                Crop Finder
+              </a>
+              <a
+                href="http://127.0.0.1:5000/fertilizer" className="text-white font-montserrat font-medium hover:text-green-200"
+              >
+                Fertilizer Finder
+              </a>
             </nav>
-
-
             <div className="text-2xl text-white  hover:text-green-400 relative">
               < Link to="/cart"><BsCartFill /></Link>
               <div className="absolute bottom-2 left-3 hover:bg-red-800 bg-red-500 text-sm rounded-xl text-white h-5 w-5 text-center">
-                19
+                {cartNumber}
               </div>
             </div>
             <div>

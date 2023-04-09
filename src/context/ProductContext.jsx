@@ -18,6 +18,7 @@ export const ProductContextProvider = (props) => {
     }, []);
 
     // console.log(products)
+
     const contextValue = { products }
 
     return (
