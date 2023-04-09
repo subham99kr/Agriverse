@@ -11,9 +11,7 @@ const ImageCarousel = () => {
   useEffect(() => {
     const getProducts = async () => {
       const data = await getDocs(userCollectionRef)
-      console.log(data)
       setProduct(data.docs.map((doc) =>({ ...doc.data(), id: doc.id })))
-      console.log(product)
     }
     getProducts(); 
   }, []);

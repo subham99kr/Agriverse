@@ -14,6 +14,7 @@ export default function Example() {
   const { products } = useContext(ProductContext)
   const { clearCart } = useContext(ShopContext); 
   let products1 = []
+  let totalPrice = 0; 
 
 
   function update() {
@@ -22,6 +23,7 @@ export default function Example() {
     keys.forEach(key => {
       const e = products?.find(prod => prod.id === key);
       let price = Number(e.price) * Number(cartItems[key]);
+      totalPrice += price; 
       products1.push({
         id: key,
         name: e.imageAlt, 
@@ -85,7 +87,7 @@ export default function Example() {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products1?.map((product, ind) => (product.quantity > 0)&&(
+                            {products1?.map((product) => (product.quantity > 0)&&(
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -128,7 +130,7 @@ export default function Example() {
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                       <div className="flex justify-between text-base font-medium text-gray-900">
                         <p>Subtotal</p>
-                        <p>$262.00</p>
+                        <p>{"\u20B9 "}{totalPrice}</p>
                       </div>
                       <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                       <div className="mt-6">
