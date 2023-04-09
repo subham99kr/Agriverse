@@ -38,6 +38,5 @@ function App() {
       </ProductContextProvider>
     </>
   );
-}
-
+  }
 export default App;
