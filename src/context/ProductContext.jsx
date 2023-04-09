@@ -3,6 +3,7 @@ import { db } from "../Firebase";
 import { useEffect, useState } from "react";
 import { getDocs, collection, } from "firebase/firestore";
 
+
 export const ProductContext = createContext(null)
 
 export const ProductContextProvider = (props) => {
@@ -18,6 +19,7 @@ export const ProductContextProvider = (props) => {
     }, []);
 
     // console.log(products)
+
     const contextValue = { products }
 
     return (

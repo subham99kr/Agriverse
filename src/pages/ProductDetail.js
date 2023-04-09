@@ -17,18 +17,20 @@ const defaultProduct = {
   imageUrl: '', 
   imageAlt: '', 
   description: ''
-}
+}; 
+
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' '); 
 }
 
 export default function Example() {
-  const a = useContext(ProductContext)
-  const {productId} = useParams()
+  const { addToCart } = useContext(ShopContext); 
+  const { products } = useContext(ProductContext); 
+  const { productId } = useParams();
 
   let product = defaultProduct; 
-  const thisProduct = a?.products.find(prod => prod.id === productId);
+  const thisProduct = products?.find(prod => prod.id === productId);
   if(thisProduct !== undefined) {
     product = thisProduct
   }
@@ -82,14 +84,12 @@ export default function Example() {
               </div>
             </div>
 
-            <form className="mt-auto">
               <button
-                type="submit"
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={() => addToCart(productId)}
               >
                 Add to cart
               </button>
-            </form>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
