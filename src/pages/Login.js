@@ -1,5 +1,5 @@
 import react from "react";
-import logoBold from "../assets/logo-bold.png";
+import logoBold from "../assets/logo-only.png";
 import React, { useState } from "react";
 // import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,6 +20,8 @@ function Login() {
         console.log(email)
         const user = userCredential.user;
         alert("Successfully logged in.");
+        // toast("Successfully logged in.");
+        // <ToastContainer />
         navigate("/");
         // ...
       })
@@ -31,13 +33,12 @@ function Login() {
   };
 
   return (
-    <div className="bg-white pt-4 md:pt-6">
-      <div className="w-full max-w-sm bg-slate-600 m-auto flex items-center flex-col p-4 shadow-lg rounded">
-        <div className="w-20 overflow-hidden drop-shadow-md shadow-md"></div>
-        <img src={logoBold} className="w-full" />
-
+    <div className='bg-[#f5f5f5] pt-4 md:pt-6 h-[90vh]'>
+      <div className='bg-white w-full max-w-xl m-auto flex items-center flex-col p-4 rounded shadow-lg'>
+              <div className='bg-slate-100 w-full overflow-hidden'></div>
+              <img src={logoBold} className="p-3 h-32 rounded-3xl" />
         <form>
-          <label className="text-white text-md font-medium" htmlFor="email">
+          <label className="mt-6 text-lg font-montserrat font-medium" htmlFor="email">
             Email
           </label>
           <input
@@ -48,7 +49,7 @@ function Login() {
             onChange={(e) => setEmail(e.target.value)}
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
           />
-          <label className="text-white text-md font-medium" htmlFor="password">
+          <label className="mt-6 text-lg font-montserrat font-medium" htmlFor="password">
             Password
           </label>
           <input

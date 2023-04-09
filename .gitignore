@@ -21,7 +21,8 @@
 
 npm-debug.log*
 package-lock.json
-#BACKEND
+
+# backend
 backend/Data_to_consider/
 backend/References/
 backend/TEST_Project/
