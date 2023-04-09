@@ -1,16 +1,9 @@
 import { StarIcon } from '@heroicons/react/20/solid'
-import { db } from "../Firebase";
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
-import { getDocs, collection,} from "firebase/firestore";
+import { useParams } from 'react-router-dom'
+import { ProductContext } from "../context/ProductContext";
+import { ShopContext } from '../context/ShopContext';
+import { useContext } from "react";
 
-const defaultProduct = {
-  id: '',
-  price: '',
-  imageUrl: '',
-  imageAlt: '',
-  description: '',
-}
 const reviews = { href: '#', average: 4, totalCount: 117 }
 const highlights = [
   'Hand cut and sewn locally',
@@ -18,36 +11,31 @@ const highlights = [
   'Pre-washed & pre-shrunk',
   'Ultra-soft 100% cotton',
 ]
+const defaultProduct = {
+  id: '', 
+  price: '', 
+  imageUrl: '', 
+  imageAlt: '', 
+  description: ''
+}
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Example() {
-  const [products, setProducts] = useState([]);
-  let product = defaultProduct
-
-
-  const userCollectionRef = collection(db, "products");
+  const a = useContext(ProductContext)
   const {productId} = useParams()
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await getDocs(userCollectionRef);
-      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getProducts();
-  }, []);
-  const thisProduct = products.find(prod => prod.id === productId);
-  // console.log(thisProduct)
 
+  let product = defaultProduct; 
+  const thisProduct = a?.products.find(prod => prod.id === productId);
   if(thisProduct !== undefined) {
     product = thisProduct
   }
   
-
   return (
-    <div className="bg-#f5f5f5">
-      <div className="pt-6" key={product.id}>
+    <div className="bg-white">
+      <div className="pt-6 mx-3" key={product.id}>
 
         {/* Image gallery */}
         <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">

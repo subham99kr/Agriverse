@@ -1,23 +1,12 @@
-import React from "react";
 import "../styles/fonts.css";
-
-import { db } from "../Firebase";
-import { useEffect, useState } from "react";
-import { getDocs, collection,} from "firebase/firestore";
 import { Link } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
+import { useContext } from "react";
+
 
 function Search() {
-  const [products, setProducts] = useState([]);
-  const userCollectionRef = collection(db, "products");
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await getDocs(userCollectionRef);
-      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getProducts();
-  }, []);
+  const a = useContext(ProductContext).products
+  
   return (
     <div className="bg-[#f5f5f5]">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14 lg:max-w-7xl lg:px-8">
@@ -26,11 +15,11 @@ function Search() {
         </h2>
 
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-          {products?.map((product) => {
+          {a?.map((product, ind) => {
             return (
               <div className="p-2 group relative shadow-sm bg-white pt-4 rounded-t-xl">
                 <div
-                  key={product.id}
+                  key={ind}
                   className="min-h-80 aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md lg:aspect-none group-hover:opacity-75 lg:h-80"
                 >
                   <img

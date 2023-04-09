@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import Tempanddetails from '../components/Tempanddetails';
+import TopButtons from '../components/TopButtons';
+import Inputs from '../components/inputs';
+import Timeandlocation from '../components/timeandlocation';
+import '../styles/Weather.css'
 
 const News = () => {
     const [news, setNews] = useState([])
@@ -31,6 +36,12 @@ const News = () => {
 
     return (
       <div className="bg-[#f5f5f5]">
+        <div className=" w-full px-32 py-5  bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
+            <TopButtons />
+            <Inputs />
+            <Timeandlocation />
+            <Tempanddetails />
+        </div>
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-14 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900 font-ubuntu mb-4">News and updates</h2>
   

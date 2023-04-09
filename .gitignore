@@ -21,3 +21,12 @@
 
 npm-debug.log*
 package-lock.json
+#BACKEND
+backend/Data_to_consider/
+backend/References/
+backend/TEST_Project/
+backend/.ipynb_checkpoints/
+backend/.vscode/
+backend/__pycache__/
+backend/New Plant Diseases Dataset(Augmented)/
+backend/Docs/
