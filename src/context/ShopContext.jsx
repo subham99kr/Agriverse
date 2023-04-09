@@ -19,6 +19,9 @@ export const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState({...data});
     
     const addToCart = (itemId) => {
+        if(cartItems[itemId] == null || cartItems[itemId] == undefined) {
+            cartItems[itemId] = 0; 
+        }
         setCartItems((prev) => ({...prev, [itemId]: prev[itemId] + 1}))
         localStorage.setItem('cart', JSON.stringify(cartItems))
     }
