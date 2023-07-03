@@ -36,12 +36,12 @@ function Tempanddetails({
       <div className="flex font-light text-sm items-center justify-center">
         <UilWind size={18} class="mr-1"/>
            Wind Speed:
-            <span className="font-medium ml-1">{`${humidity}`}%</span>
+            <span className="font-medium ml-1">{`${speed}`}km/hr</span>
       </div>
       <div className="flex font-light text-sm items-center justify-center">
         <UilTear size={18} class="mr-1"/>
             Humidity:
-            <span className="font-medium ml-1">{`${speed}`}km/hr</span>
+            <span className="font-medium ml-1">{`${humidity}`}%</span>
       </div>
    </div>
     </div>
