@@ -1,17 +1,18 @@
-import { async } from "q";
 import logoBold from "../assets/logo-only.png";
 import { useState } from "react";
+import { collection, addDoc } from "firebase/firestore"; 
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../Firebase";
+import {v4 as uuidv4} from "uuid";
 // import {Link} from 'react-router-dom'
 import React from "react";
 // import "./Login.css";
 
 const Register = () => {
   const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    address: "",
-    number: "",
-    crops: "",
+    productTitle: "",
+    price: "",
+    description: "",
   });
   let name, value;
   const postUserData = (event) => {
@@ -20,40 +21,56 @@ const Register = () => {
     setUserData({ ...userData, [name]: value });
   };
 
+  const [file, setFile] = useState("");
+
+  function handleChange(event) {
+    setFile(event.target.files[0]);
+  }
+
+  
+
   const submitData = async (event) => {
     event.preventDefault();
-    const { firstName, lastName, address, number, crops } = userData;
-    if (firstName && lastName && address && number && crops) {
-      const res = fetch(
-        "https://webgriphunters-117f8-default-rtdb.firebaseio.com/regUsers.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            firstName,
-            lastName,
-            address,
-            number,
-            crops,
-          }),
+    let storageRef = ref(storage, `/image/${uuidv4()}`);
+    const { productTitle, price, description } = userData;
+    if (file && productTitle && price && description) {
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // update progress
+        },
+        (err) => console.log(err),
+        () => {
+          // download url
+          getDownloadURL(uploadTask.snapshot.ref).then(async(url) => {
+            // imgURL = url;
+            try {
+              const docRef = await addDoc(collection(db, "products"), {
+                imageAlt: productTitle,
+                price: price,
+                description: description,
+                imageUrl: url
+              });
+              console.log("Document written with ID: ", docRef.id);
+              alert("Product Added Sucessfully");
+        
+              setUserData({
+                productTitle: "",
+                price: "",
+                description: "",
+              });
+            
+            } catch (e) {
+              console.error("Error adding document: ", e);
+            }
+          });
         }
       );
 
-      if (res) {
-        setUserData({
-          firstName: "",
-          lastName: "",
-          address: "",
-          number: "",
-          crops: "",
-        });
-        alert("Thanks for registering as a seller");
-      } else {
-        alert("Please fill every data");
-      }
     }
+    else alert("All fields are required");
   };
 
   return (
@@ -64,76 +81,61 @@ const Register = () => {
         <form>
           <label
             className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="firstName"
+            htmlFor="productTitle"
           >
-            First Name
+            Product Title
           </label>
           <input
             type="text"
-            id="firstName"
-            name="firstName"
-            value={userData.firstName}
+            id="productTitle"
+            name="productTitle"
+            value={userData.productTitle}
             onChange={postUserData}
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
           />
           <label
             className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="lastName "
+            htmlFor="price "
           >
-            Last Name
+            Product Price
           </label>
           <input
             type="text"
-            id="lastName"
-            name="lastName"
-            value={userData.lastName}
+            id="price"
+            name="price"
+            value={userData.price}
             onChange={postUserData}
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
           />
           <label
             className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="firstName"
+            htmlFor="productTitle"
           >
-            Address
+            Description
           </label>
           <textarea
-            name="address"
-            value={userData.address}
-            placeholder="Enter Your Address"
+            name="description"
+            value={userData.description}
+            placeholder="Enter Your description"
             rows={4}
             cols={40}
             className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
             onChange={postUserData}
           />
           <label
-            className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="firstName"
-          >
-            Contact Number
-          </label>
-          <input
-            type="text"
-            id="number"
-            name="number"
-            value={userData.number}
-            onChange={postUserData}
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
-          />
-          <label
-            className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="lastName "
-          >
-            List of Crops to Sell
-          </label>
-          <input
-            type="text"
-            id="crops"
-            name="crops"
-            value={userData.crops}
-            onChange={postUserData}
-            placeholder="E.g. Sugarcane,Paddy And Corn"
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
-          />
+            className="mt-6 text-lg font-montserrat font-medium">
+              Company Logo</label>
+              <br/>
+              <input
+                // className={styles.Input}
+                type="file"
+                id="logo"
+                name="logo"
+                onChange={handleChange}
+                accept="/image/*"
+              />
+              <br/>
+        
           <button
             className="w-full max-w-[150px] m-auto bg-orange-500 hover:bg-orange-600 cursor-pointer  text-xl font-medium text-center py-1 rounded-full mt-4"
             onClick={submitData}

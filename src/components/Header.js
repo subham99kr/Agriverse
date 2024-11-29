@@ -1,10 +1,12 @@
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { BsCartFill } from "react-icons/bs";
 import { FaUserAlt } from "react-icons/fa";
 import "../styles/fonts.css";
 import brandLogo from "../assets/logo-bold.png";
 import { ShopContext } from "../context/ShopContext";
+import { auth } from "../Firebase";
+import { signOut, onAuthStateChanged  } from "firebase/auth";
 
 function Header() {
   const [showMenu, setShowMenu] = useState(false); 
@@ -20,6 +22,19 @@ function Header() {
     console.log(cartItems[element])
     
   });
+  const[authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setAuthenticated(true);
+      } else {
+        // User is signed out
+        // ...
+        setAuthenticated(false);
+      }
+    });
+  }, [])
 
   return (
     <>
@@ -82,12 +97,25 @@ function Header() {
                 <FaUserAlt />
               </div>
               {showMenu && (<div className="absolute right-0 bg-white shadow px-2 py-2 my-1 drop-shadow-md z-20">
-                <Link to='/register'>
+                {authenticated ?
+                  <>
+                  <Link to='/register'>
                   <p className="whitespace-nowrap">New Product</p>
-                </Link>
-                <Link to="/signup" onClick={handleShowMenu}>
+                  </Link>
+                  <p className="whitespace-nowrap" onClick={async()=>{await signOut(auth)}}>Sign Out</p>
+                  </>
+                :
+                <>
+                  <Link to="/signup" onClick={handleShowMenu}>
                   <p className="whitespace-nowrap">Signup</p>
                 </Link>
+                <Link to="/login" onClick={handleShowMenu}>
+                  <p className="whitespace-nowrap">login</p>
+                </Link>
+                </>
+                }
+                
+                
               </div>)}
             </div>
           </div>
