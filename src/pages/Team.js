@@ -3,6 +3,12 @@ import Srijan from '../assets/srijan.png'
 
 const teamMembers = [
   {
+    name: 'Subham Kumar',
+    role: '',
+    image: 'https://media.licdn.com/dms/image/v2/D4D03AQGrKUuvIDtwgg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1667437596772?e=1750291200&v=beta&t=Hj-yQrPqCC3S1UMDZVdyQDKa9RgC4a2TRlHx5S8gAY4',
+    link: 'https://www.linkedin.com/in/subham-kumar-a9a2001a0/'
+  },
+  {
     name: 'Srijan Sehdev',
     role: '',
     image: Srijan,
@@ -11,25 +17,20 @@ const teamMembers = [
   {
     name: 'Shobhit Kumar',
     role: '',
-    image: 'https://media.licdn.com/dms/image/C4D03AQHLPAskfbLicA/profile-displayphoto-shrink_800_800/0/1661604445084?e=1686182400&v=beta&t=7jiZ7jSELpXaJQTpcLUuyyntmsoJ7APdut2GGMVPJvU',
+    image: 'https://media.licdn.com/dms/image/v2/D4D03AQER5zAZyCUr2w/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1722854452417?e=1750291200&v=beta&t=_mN0PlH2q9_Cr6tJCRDuQ5l9TqgWk_4dV5RnbWonWFg',
     link: 'https://www.linkedin.com/in/shobhit-kumar28/'
   },
   {
     name: 'Srikant Agarwal',
     role: '',
-    image: 'https://media.licdn.com/dms/image/D4D03AQFJWwuh1aotag/profile-displayphoto-shrink_800_800/0/1673159715357?e=1686182400&v=beta&t=7S7KgIG1rEzCEgVO-pvLeS4yDjEFkfKwrlA_kALeWYI',
+    image: 'https://media.licdn.com/dms/image/v2/D5603AQEFfJp9DNamlw/profile-displayphoto-shrink_400_400/B56ZYMpAobHoAg-/0/1743968800210?e=1750291200&v=beta&t=jLUqiudWbxjtJA1bZgmHR3s6oTdPFoIHrHZ3lWZBca4',
     link: 'https://in.linkedin.com/in/srikant-agrawal-905bb11ba'
   },
-  {
-    name: 'Subham Kumar',
-    role: '',
-    image: 'https://media.licdn.com/dms/image/D4D03AQGrKUuvIDtwgg/profile-displayphoto-shrink_800_800/0/1667437592477?e=1686182400&v=beta&t=BPVBoi_i2kDKtCZYrBIFzQOf-NfjeEXGtfU1oD_SgTo',
-    link: 'https://www.linkedin.com/in/subham-kumar-a9a2001a0/'
-  },
+
   {
     name: 'Tejaswi Kumari',
     role: '',
-    image: 'https://media.licdn.com/dms/image/D4D03AQGWiHyi8RlhAg/profile-displayphoto-shrink_800_800/0/1671026744041?e=1686182400&v=beta&t=-7NIvnHXj4G4q8QyL11ZiPGbd3dBbZx_ebsm1zjYeKo',
+    image: 'https://media.licdn.com/dms/image/v2/D4D03AQGWiHyi8RlhAg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1671026747326?e=1750291200&v=beta&t=rdXRBPrhOn3xehG4OpOQX5q0aZ7ZAbSV2p_C42r_bCs',
     link: 'https://www.linkedin.com/in/tejaswi-kumari-9b8a8a22a/'
   },
 ];

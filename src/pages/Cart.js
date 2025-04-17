@@ -1,40 +1,35 @@
-import { Fragment, useState, useContext } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import { Link } from 'react-router-dom'
-import { ShopContext } from '../context/ShopContext'
-import { ProductContext } from '../context/ProductContext'
-
+import { Fragment, useState, useContext } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Link } from 'react-router-dom';
+import { ShopContext } from '../context/ShopContext';
+import { ProductContext } from '../context/ProductContext';
 
 export default function Example() {
-  const [open, setOpen] = useState(true)
-  const { cartItems } = useContext(ShopContext)
-  const { products } = useContext(ProductContext)
-  const { clearCart } = useContext(ShopContext); 
-  let products1 = []
-  let totalPrice = 0; 
-
+  const [open, setOpen] = useState(true);
+  const { cartItems, addToCart, removeFromCart, clearCart } = useContext(ShopContext);
+  const { products } = useContext(ProductContext);
+  let products1 = [];
+  let totalPrice = 0;
 
   function update() {
-    products1 = []
-    const keys = Object.keys(cartItems)
+    products1 = [];
+    const keys = Object.keys(cartItems);
     keys?.forEach(key => {
       const e = products?.find(prod => prod.id === key);
       let price = Number(e.price) * Number(cartItems[key]);
-      totalPrice += price; 
+      totalPrice += price;
       products1.push({
         id: key,
-        name: e.imageAlt, 
+        name: e.name,
         price: price,
         quantity: cartItems[key],
-        imageUrl: e.imageUrl, 
-        imageAlt: e.imageAlt, 
-      })
+        imageUrl: e.imageUrl,
+        imageAlt: e.imageAlt,
+      });
     });
   }
-  update(); 
-
-  // function clearItem(id) 
+  update();
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -70,14 +65,14 @@ export default function Example() {
                         <Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
                         <div className="ml-3 flex h-7 items-center">
                           <Link to="/">
-                          <button
-                            type="button"
-                            className="-m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={() => setOpen(false)}
-                          >
-                            <span className="sr-only">Close panel</span>
-                            <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                          </button>
+                            <button
+                              type="button"
+                              className="-m-2 p-2 text-gray-400 hover:text-gray-500"
+                              onClick={() => setOpen(false)}
+                            >
+                              <span className="sr-only">Close panel</span>
+                              <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                            </button>
                           </Link>
                         </div>
                       </div>
@@ -85,7 +80,7 @@ export default function Example() {
                       <div className="mt-8">
                         <div className="flow-root">
                           <ul role="list" className="-my-6 divide-y divide-gray-200">
-                            {products1?.map((product) => (product.quantity > 0)&&(
+                            {products1?.map((product) => (product.quantity > 0) && (
                               <li key={product.id} className="flex py-6">
                                 <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                   <img
@@ -99,7 +94,7 @@ export default function Example() {
                                   <div>
                                     <div className="flex justify-between text-base font-medium text-gray-900">
                                       <h3>
-                                      <Link to={`/search/${product.id}`}>{product.name}</Link>
+                                        <Link to={`/search/${product.id}`}>{product.name}</Link>
                                       </h3>
                                       <p className="ml-4">{"\u20B9 "}{product.price}</p>
                                     </div>
@@ -110,8 +105,23 @@ export default function Example() {
                                     <div className="flex">
                                       <button
                                         type="button"
-                                        onClick={() => clearCart(product.id)}
+                                        onClick={() => removeFromCart(product.id)}
                                         className="font-medium text-indigo-600 hover:text-indigo-500"
+                                      >
+                                        -
+                                      </button>
+                                      <p className="mx-2">{product.quantity}</p>
+                                      <button
+                                        type="button"
+                                        onClick={() => addToCart(product.id)}
+                                        className="font-medium text-indigo-600 hover:text-indigo-500"
+                                      >
+                                        +
+                                      </button>
+                                      <button
+                                        type="button"
+                                        onClick={() => clearCart(product.id)}
+                                        className="font-medium text-indigo-600 hover:text-indigo-500 ml-4"
                                       >
                                         Remove
                                       </button>
@@ -136,7 +146,7 @@ export default function Example() {
                           href="#"
                           className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                         >
-                          Checkout
+                          <Link to="/checkout/" className="text-white"> Checkout</Link>
                         </a>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
@@ -161,5 +171,5 @@ export default function Example() {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

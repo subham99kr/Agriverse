@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import '../styles/Help.css'
- import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
+import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
 import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
 
 const API_KEY = "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";
 const systemMessage = { 
-  "role": "system", "content": " your name is edukrishak,You are supposed to answer questions only regarding agriculture"
+  "role": "system", "content": "your name is edukrishak, You are supposed to answer questions only regarding agriculture"
 }
 
 function Help() {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm kissanhelpline! Ask me anything!",
+      message: "Sorry, This feature has been Disable due to lack of funds.",
       sentTime: "just now",
       sender: "ChatGPT"
     }
@@ -35,6 +35,7 @@ function Help() {
 
   async function processMessageToChatGPT(chatMessages) {
 
+    // Map chatMessages to the required API format
     let apiMessages = chatMessages.map((messageObject) => {
       let role = "";
       if (messageObject.sender === "ChatGPT") {
@@ -42,10 +43,8 @@ function Help() {
       } else {
         role = "user";
       }
-      return { role: role, content: messageObject.message}
+      return { role: role, content: messageObject.message }
     });
-
-
 
     const apiRequestBody = {
       "model": "gpt-3.5-turbo",
@@ -55,24 +54,43 @@ function Help() {
       ]
     }
 
-    await fetch("https://api.openai.com/v1/chat/completions", 
-    {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + API_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(apiRequestBody)
-    }).then((data) => {
-      return data.json();
-    }).then((data) => {
-      console.log(data);
+    try {
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(apiRequestBody)
+      });
+
+      const data = await response.json();
+
+      // Safely access the response data
+      const reply = data?.choices?.[0]?.message?.content;
+
+      if (reply) {
+        setMessages([...chatMessages, {
+          message: reply,
+          sender: "ChatGPT"
+        }]);
+      } else {
+        console.error("Error: No message content returned from API.");
+        setMessages([...chatMessages, {
+          message: "Sorry, This feature has been Disable due to lack of funds.",
+          sender: "ChatGPT"
+        }]);
+      }
+
+    } catch (error) {
+      console.error("Error while fetching response from OpenAI:", error);
       setMessages([...chatMessages, {
-        message: data.choices[0].message.content,
+        message: "There was an error processing your request. Please try again later.",
         sender: "ChatGPT"
       }]);
+    } finally {
       setIsTyping(false);
-    });
+    }
   }
 
   return (
@@ -85,7 +103,6 @@ function Help() {
               typingIndicator={isTyping ? <TypingIndicator content="kissanhelp is typing" /> : null}
             >
               {messages.map((message, i) => {
-                console.log(message)
                 return <Message key={i} model={message} />
               })}
             </MessageList>
@@ -97,4 +114,4 @@ function Help() {
   )
 }
 
-export default Help
+export default Help;

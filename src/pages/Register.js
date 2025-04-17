@@ -1,144 +1,164 @@
-import logoBold from "../assets/logo-only.png";
-import { useState } from "react";
+import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore"; 
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { db, storage } from "../Firebase";
-import {v4 as uuidv4} from "uuid";
-// import {Link} from 'react-router-dom'
-import React from "react";
-// import "./Login.css";
+import { auth, db, storage } from "../Firebase";
+import { v4 as uuidv4 } from "uuid";
+import logoBold from "../assets/logo-only.png";
 
 const Register = () => {
   const [userData, setUserData] = useState({
     productTitle: "",
     price: "",
     description: "",
+    quantity: "",
+    sku: "",
+    unitSize: "",
   });
-  let name, value;
+
+  const [file, setFile] = useState(null);
+
   const postUserData = (event) => {
-    name = event.target.name;
-    value = event.target.value;
-    setUserData({ ...userData, [name]: value });
+    const { name, value } = event.target;
+    setUserData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const [file, setFile] = useState("");
-
-  function handleChange(event) {
+  const handleChange = (event) => {
     setFile(event.target.files[0]);
-  }
-
-  
+  };
 
   const submitData = async (event) => {
     event.preventDefault();
-    let storageRef = ref(storage, `/image/${uuidv4()}`);
-    const { productTitle, price, description } = userData;
-    if (file && productTitle && price && description) {
+
+    const { productTitle, price, description, sku, quantity, unitSize } = userData;
+
+    if (!file || !productTitle || !price || !description || !sku || quantity <= 0 || !unitSize) {
+      alert("All fields are required and quantity must be greater than 0");
+      return;
+    }
+
+    try {
+      if (!auth.currentUser) {
+        throw new Error("User doesn't exist");
+      }
+
+      const userId = auth.currentUser.uid;
+      const storageRef = ref(storage, `/image/${uuidv4()}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
         "state_changed",
-        (snapshot) => {
-          // update progress
+        null,
+        (error) => {
+          console.error("Upload error:", error);
         },
-        (err) => console.log(err),
-        () => {
-          // download url
-          getDownloadURL(uploadTask.snapshot.ref).then(async(url) => {
-            // imgURL = url;
-            try {
-              const docRef = await addDoc(collection(db, "products"), {
-                imageAlt: productTitle,
-                price: price,
-                description: description,
-                imageUrl: url
-              });
-              console.log("Document written with ID: ", docRef.id);
-              alert("Product Added Sucessfully");
-        
-              setUserData({
-                productTitle: "",
-                price: "",
-                description: "",
-              });
-            
-            } catch (e) {
-              console.error("Error adding document: ", e);
-            }
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+
+          const docRef = await addDoc(collection(db, "products"), {
+            name: productTitle,
+            price: Number(price),
+            description,
+            imageUrl: downloadURL,
+            sku,
+            quantity: Number(quantity),
+            unitSize,
+            status: 'In stock',
+            reviews: [],
+            ownerId: userId,
+            rating: null,
           });
+
+          console.log("Product added with ID:", docRef.id);
+          alert("Product Added Successfully");
+
+          setUserData({
+            productTitle: "",
+            price: "",
+            description: "",
+            quantity: "",
+            sku: "",
+            unitSize: "",
+          });
+          setFile(null);
         }
       );
-
+    } catch (error) {
+      console.error("Error submitting data:", error.message);
+      alert("Failed to add product. " + error.message);
     }
-    else alert("All fields are required");
   };
 
   return (
     <div className="bg-[#f5f5f5] pt-4 md:pt-6 h-[90vh]">
       <div className="bg-white w-full max-w-xl m-auto flex items-center flex-col p-4 rounded shadow-lg">
-        <div className="bg-slate-100 w-full overflow-hidden"></div>
-        <img src={logoBold} className="p-3 h-32 rounded-3xl" />
-        <form>
-          <label
-            className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="productTitle"
-          >
-            Product Title
-          </label>
+        <img src={logoBold} alt="Logo" className="p-3 h-32 rounded-3xl" />
+        <form onSubmit={submitData} className="w-full">
+          <label className="mt-6 text-lg font-medium">Product Title</label>
           <input
             type="text"
-            id="productTitle"
             name="productTitle"
             value={userData.productTitle}
             onChange={postUserData}
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
           />
-          <label
-            className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="price "
-          >
-            Product Price
-          </label>
+
+          <label className="mt-6 text-lg font-medium">Price</label>
           <input
-            type="text"
-            id="price"
+            type="number"
             name="price"
             value={userData.price}
             onChange={postUserData}
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
           />
-          <label
-            className="mt-6 text-lg font-montserrat font-medium"
-            htmlFor="productTitle"
-          >
-            Description
-          </label>
+
+          <label className="mt-6 text-lg font-medium">Quantity</label>
+          <input
+            type="number"
+            name="quantity"
+            value={userData.quantity}
+            onChange={postUserData}
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
+          />
+
+          <label className="mt-6 text-lg font-medium">Unit Size</label>
+          <input
+            type="text"
+            name="unitSize"
+            value={userData.unitSize}
+            onChange={postUserData}
+            placeholder="e.g. 1kg, 500ml"
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
+          />
+
+          <label className="mt-6 text-lg font-medium">SKU</label>
+          <input
+            type="text"
+            name="sku"
+            value={userData.sku}
+            onChange={postUserData}
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
+          />
+
+          <label className="mt-6 text-lg font-medium">Description</label>
           <textarea
             name="description"
-            value={userData.description}
-            placeholder="Enter Your description"
             rows={4}
-            cols={40}
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue"
+            value={userData.description}
             onChange={postUserData}
+            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded"
           />
-          <label
-            className="mt-6 text-lg font-montserrat font-medium">
-              Company Logo</label>
-              <br/>
-              <input
-                // className={styles.Input}
-                type="file"
-                id="logo"
-                name="logo"
-                onChange={handleChange}
-                accept="/image/*"
-              />
-              <br/>
-        
+
+          <label className="mt-6 text-lg font-medium">Upload Product Image</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleChange}
+            className="mt-1 mb-4"
+          />
+
           <button
-            className="w-full max-w-[150px] m-auto bg-orange-500 hover:bg-orange-600 cursor-pointer  text-xl font-medium text-center py-1 rounded-full mt-4"
-            onClick={submitData}
+            type="submit"
+            className="w-full max-w-[150px] bg-orange-500 hover:bg-orange-600 text-white text-xl font-medium text-center py-1 rounded-full mt-4"
           >
             Submit
           </button>
@@ -147,4 +167,5 @@ const Register = () => {
     </div>
   );
 };
+
 export default Register;

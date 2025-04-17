@@ -13,6 +13,9 @@ import Cart from './pages/Cart.js'
 import ProductDetail from './pages/ProductDetail'
 import { ProductContextProvider } from './context/ProductContext';
 import { ShopContextProvider } from './context/ShopContext';
+import Checkout from './pages/Checkout';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Toastify CSS
 
 function App() {
   
@@ -24,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<><Header /><Home /></>} />
               <Route path="/news" element={<><Header /><News /></>} />
+              <Route path="/checkout" element={<><Header /><Checkout /></>} />
               <Route path="/help" element={<><Header /><Help /></>} />
               <Route path="/login" element={<><Header /><Login /></>} />
               <Route path="/signup" element={<><Header /><Signup /></>} />

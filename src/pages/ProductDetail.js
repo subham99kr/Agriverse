@@ -3,22 +3,25 @@ import { useParams } from 'react-router-dom'
 import { ProductContext } from "../context/ProductContext";
 import { ShopContext } from '../context/ShopContext';
 import { useContext } from "react";
+import { db } from '../Firebase';
 
-const reviews = { href: '#', average: 4, totalCount: 117 }
 const highlights = [
   'Hand cut and sewn locally',
   'Dyed with our proprietary colors',
   'Pre-washed & pre-shrunk',
   'Ultra-soft 100% cotton',
 ]
-const defaultProduct = {
-  id: '', 
-  price: '', 
-  imageUrl: '', 
-  imageAlt: '', 
-  description: ''
-}; 
 
+const defaultProduct = {
+  name: '', 
+  description: '',
+  price: 0, 
+  imageUrl: '', 
+  imageAlt: '',
+  quantity: '', 
+  unitSize: "",
+  status: '',
+}; 
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' '); 
@@ -31,10 +34,17 @@ export default function Example() {
 
   let product = defaultProduct; 
   const thisProduct = products?.find(prod => prod.id === productId);
-  if(thisProduct !== undefined) {
+  if (thisProduct !== undefined) {
     product = thisProduct
   }
-  
+
+  // Hardcoded reviews
+  const reviews = {
+    href: '#',
+    average: 4,
+    totalCount: 117
+  };
+
   return (
     <div className="bg-white">
       <div className="pt-6 mx-3" key={product.id}>
@@ -53,7 +63,7 @@ export default function Example() {
         {/* Product info */}
         <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.imageAlt}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
           </div>
 
           {/* Options */}
@@ -62,7 +72,7 @@ export default function Example() {
             <p className="text-3xl tracking-tight text-gray-900">{"\u20B9 "}{product.price}</p>
 
             {/* Reviews */}
-            <div className="mt-6">
+            <div className="mt-6">  
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
                 <div className="flex items-center">
@@ -84,12 +94,12 @@ export default function Example() {
               </div>
             </div>
 
-              <button
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={() => addToCart(productId)}
-              >
-                Add to cart
-              </button>
+            <button
+              className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={() => addToCart(productId)}
+            >
+              Add to cart
+            </button>
           </div>
 
           <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
@@ -102,25 +112,13 @@ export default function Example() {
               </div>
             </div>
 
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
-
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                  {highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
-                      <span className="text-gray-600">{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            
 
             <div className="mt-10">
               <h2 className="text-sm font-medium text-gray-900">Details</h2>
 
               <div className="mt-4 space-y-6">
-                <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque odio nibh, maximus ut nisi quis, dignissim sodales magna. In lobortis ac sapien ac tempor. Aenean.</p>
+                <p className="text-sm text-gray-600">{product.description}</p>
               </div>
             </div>
           </div>
